@@ -1,0 +1,89 @@
+SET SQL_SAFE_UPDATES = 0;
+
+-- Use the inventory_manager database
+USE inventory_manager;
+
+-- Drop existing products table if it exists
+DROP TABLE IF EXISTS products;
+
+-- Create the products table
+CREATE TABLE products (
+  id INT NOT NULL AUTO_INCREMENT,
+  Name VARCHAR(50) NOT NULL,
+  Description TEXT,
+  Category VARCHAR(50) NOT NULL,
+  Price DOUBLE NOT NULL,
+  Quantity INT DEFAULT NULL,
+  min_quantity INT NOT NULL,
+  PRIMARY KEY (id),
+  UNIQUE KEY id (id)
+) AUTO_INCREMENT = 1000;
+
+-- Add 100 items to the table
+INSERT INTO products (Name, Description, Category, Price, Quantity, min_quantity) VALUES
+-- Fruits
+('Apple', 'Fresh red apple', 'Fruits', 1.99, 100, 20),
+('Banana', 'Ripe banana', 'Fruits', 0.99, 100, 30),
+('Orange', 'Juicy orange', 'Fruits', 1.49, 100, 20),
+('Pear', 'Fresh ripe pear', 'Fruits', 2.49, 100, 20),
+('Grapes', 'Seedless green grapes', 'Fruits', 3.99, 100, 15),
+('Watermelon', 'Sweet seedless watermelon', 'Fruits', 5.99, 100, 10),
+('Lemon', 'Fresh lemon', 'Fruits', 0.69, 100, 15),
+('Strawberry', 'Ripe strawberry', 'Fruits', 3.49, 100, 20),
+('Pineapple', 'Sweet pineapple', 'Fruits', 4.99, 100, 25),
+('Coconut', 'Whole coconut', 'Fruits', 2.99, 100, 20),
+('Mango', 'Juicy mango', 'Fruits', 2.79, 100, 20),
+('Peach', 'Ripe peach', 'Fruits', 1.89, 100, 15),
+('Blueberry', 'Fresh blueberry', 'Fruits', 4.29, 100, 25),
+('Grapefruit', 'Pink grapefruit', 'Fruits', 1.79, 100, 15),
+
+-- Drinks
+('Soda', 'Carbonated soft drink (cola)', 'Drinks', 1.29, 100, 20),
+('Water', 'Bottled mineral water', 'Drinks', 0.99, 100, 30),
+('Juice', 'Orange juice (freshly squeezed)', 'Drinks', 2.99, 100, 15),
+('Lemonade', 'Refreshing lemonade', 'Drinks', 1.99, 100, 20),
+('Iced Tea', 'Brewed iced tea', 'Drinks', 1.49, 100, 30),
+('Energy Drink', 'Caffeinated energy drink', 'Drinks', 2.99, 100, 15),
+('Cola', 'Cola-flavored carbonated soft drink', 'Drinks', 1.49, 100, 20),
+('Coffee', 'Medium roast ground coffee', 'Drinks', 8.99, 100, 30),
+('Tea', 'Black tea bags', 'Drinks', 2.79, 100, 20),
+('Milk', 'Fresh whole milk', 'Drinks', 1.99, 100, 30),
+('Smoothie', 'Mixed fruit smoothie', 'Drinks', 4.99, 100, 20),
+('Sports Drink', 'Electrolyte sports drink', 'Drinks', 2.29, 100, 15),
+
+-- Snacks
+('Chips', 'Potato chips (salted)', 'Snacks', 2.49, 100, 10),
+('Chocolate', 'Milk chocolate bar', 'Snacks', 1.99, 100, 15),
+('Cookies', 'Chocolate chip cookies', 'Snacks', 3.99, 100, 10),
+('Popcorn', 'Buttered popcorn', 'Snacks', 1.99, 100, 10),
+('Pretzels', 'Salted pretzels', 'Snacks', 1.49, 100, 15),
+('Trail Mix', 'Assorted nuts and dried fruits', 'Snacks', 3.49, 100, 10),
+
+
+-- Clothes
+('T-shirt', 'Unisex cotton t-shirt', 'Clothes', 14.99, 100, 15),
+('Jeans', 'Men\'s straight-fit jeans', 'Clothes', 34.99, 100, 10),
+('Sweater', 'Knit pullover sweater', 'Clothes', 44.99, 100, 10),
+('Skirt', 'Women\'s pleated skirt', 'Clothes', 24.99, 100, 5),
+('Sandals', 'Women\'s flip-flop sandals', 'Clothes', 9.99, 100, 10),
+('Hat', 'Baseball cap', 'Clothes', 19.99, 100, 5),
+('Dress Shirt', 'Men\'s dress shirt', 'Clothes', 29.99, 100, 10),
+('Dress Pants', 'Men\'s dress pants', 'Clothes', 39.99, 100, 10),
+('Blouse', 'Women\'s blouse', 'Clothes', 24.99, 100, 5),
+('Dress', 'Women\'s cocktail dress', 'Clothes', 49.99, 100, 5),
+('Suit', 'Men\'s tailored suit', 'Clothes', 199.99, 100, 5),
+('Skirt Suit', 'Women\'s skirt suit', 'Clothes', 149.99, 100, 5),
+
+-- Electronics
+('Laptop', '15-inch laptop with Intel i5 processor', 'Electronics', 799.99, 100, 5),
+('Smartphone', 'Latest smartphone model with 5G support', 'Electronics', 999.99, 100, 5),
+('Headphones', 'Wireless over-ear headphones', 'Electronics', 149.99, 100, 5),
+('Tablet', '10-inch tablet with retina display', 'Electronics', 399.99, 100, 5),
+('Camera', 'DSLR camera with 24MP sensor', 'Electronics', 599.99, 100, 5),
+('Smartwatch', 'Fitness tracker smartwatch', 'Electronics', 199.99, 100, 5),
+('Bluetooth Speaker', 'Portable Bluetooth speaker', 'Electronics', 79.99, 100, 5),
+('External Hard Drive', '1TB external hard drive', 'Electronics', 59.99, 100, 5),
+('Wireless Earbuds', 'True wireless earbuds', 'Electronics', 129.99, 100, 5),
+('Smart TV', '4K Ultra HD smart TV', 'Electronics', 699.99, 100, 5),
+('Fitness Tracker', 'Waterproof fitness tracker', 'Electronics', 49.99, 100, 5),
+('Gaming Console', 'Next-gen gaming console', 'Electronics', 499.99, 100, 5);

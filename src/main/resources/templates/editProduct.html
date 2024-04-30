@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to my Webpage!</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Philosopher', sans-serif;
+            background: linear-gradient(45deg, #6a11cb, #2193b0);
+            font-optical-sizing: auto;
+            font-style: normal;
+            font-weight: 400;
+            min-height: 100vh;
+        }
+        a, h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        .nav-link {
+            color: #fff;
+        }
+
+        .link-underline:hover {
+            text-decoration: underline !important;
+            color: #ffffff !important;
+        }
+
+        .bg-light {
+            background-color: rgba(255, 255, 255, 0.2) !important;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-light">
+    <div class="container-fluid">
+        <a class="navbar-brand text-white" th:href="@{/}">Inventory Manager</a>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2 bg-light">
+            <div class="bg-light min-vh-100">
+                <div class="sidebar-sticky">
+                    <ul class="nav flex-column nav-pills">
+                        <li class="nav-item p-2">
+                            <a class="nav-link text-white-emphasis mt-5" th:href="@{/}">Home</a>
+                        </li>
+                        <li class="nav-item p-2">
+                            <a class="nav-link text-white-emphasis mt-2" th:href="@{/products}">Show Products</a>
+                        </li>
+                        <li class="nav-item p-2">
+                            <a class="nav-link text-white-emphasis mt-2" th:href="@{/addProduct}">Add Product</a>
+                        </li>
+                        <li class="nav-item p-2">
+                            <a class="nav-link text-white-emphasis mt-2" th:href="@{/lookProduct}">Look Product</a>
+                        </li>
+                        <li class="nav-item p-2">
+                            <a class="nav-link text-white-emphasis mt-2" th:href="@{/editProduct}">Edit Product</a>
+                        </li>
+                        <li class="nav-item p-2">
+                            <a class="nav-link text-white-emphasis mt-2" th:href="@{/removeProduct}">Remove Product</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-10">
+            <div class="content tab-content">
+                <div class="tab-pane fade show active" id="home">
+                    <div class="text-left text-success p-3">
+                        <a class="h3 text-white">Edit Product</a>
+                        <br>
+                        <br>
+                        <div th:if="${error}" class="alert alert-danger text-center">
+                            Product not found!
+                        </div>
+                        <div class="container-fluid p-3">
+                            <form th:action="@{/editProductById}" method="post">
+                                <div class="row">
+                                    <div class="col-sm-9 offset-sm-1">
+                                        <input type="number" name="id" class="form-control"
+                                               title="Enter product's ID" required placeholder="Product ID"
+                                               style="text-align: center; border-radius: 30px; border: 2px solid dodgerblue;"
+                                               th:value="${product.id}">
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <button type="submit" class="btn btn-primary" title="Search Button"
+                                                style="border-radius: 20px; width: 60%">Search Product</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="container-fluid p-3" th:if="${product != null}">
+                            <form th:action="@{/updateProduct}" th:object="${product}" method="post"
+                                  style="max-width: 100%; margin-left: 200px">
+                                <div class="row">
+                                    <input type="hidden" th:field="*{id}">
+                                    <div class="col-sm-9 offset-sm-1">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label text-white" for="name">Name:</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control mb-2" id="name" th:field="*{name}" style="max-width: 600px; margin: 0 auto;">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label text-white" for="category">Category:</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control mb-2" id="category" th:field="*{category}" style="max-width: 600px; margin: 0 auto;">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label text-white" for="price">Price:</label>
+                                            <div class="col-sm-7">
+                                                <input type="number" class="form-control mb-2" id="price" th:field="*{price}" style="max-width: 600px; margin: 0 auto;">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label text-white" for="quantity">Quantity:</label>
+                                            <div class="col-sm-7">
+                                                <input type="number" class="form-control mb-2" id="quantity" th:field="*{quantity}" style="max-width: 600px; margin: 0 auto;">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label text-white" for="minQuantity">Min Quantity:</label>
+                                            <div class="col-sm-7">
+                                                <input type="number" class="form-control mb-2" id="minQuantity" th:field="*{minQuantity}" style="max-width: 600px; margin: 0 auto;">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label text-white" for="description">Description:</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control mb-2" id="description" th:field="*{description}" style="max-width: 600px; margin: 0 auto;">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="justify-content-center">
+                                    <button type="submit" class="btn btn-success" style="margin-left: 520px;">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="text-lg-start m-3">
+                            <a class="nav-link text-white link-underline" th:href="@{/}">Return Home</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

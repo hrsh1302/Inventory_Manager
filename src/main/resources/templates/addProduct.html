@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Product</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Philosopher', sans-serif;
+            background: linear-gradient(45deg, #6a11cb, #2193b0);
+            font-optical-sizing: auto;
+            font-style: normal;
+            font-weight: 400;
+            min-height: 100vh;
+        }
+        a, h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        .nav-link {
+            color: #fff;
+        }
+
+        .link-underline:hover {
+            text-decoration: underline !important;
+            color: #ffffff !important;
+        }
+
+        .bg-light {
+            background-color: rgba(255, 255, 255, 0.2) !important;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-md navbar-light ">
+        <div class="container-fluid">
+            <a class="navbar-brand text-white" th:href="@{/}">Inventory Manager</a>
+        </div>
+    </nav>
+
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2 bg-light">
+                <div class="bg-light min-vh-100">
+                    <div class="sidebar-sticky">
+                        <ul class="nav flex-column nav-pills">
+                            <li class="nav-item p-2">
+                                <a class="nav-link text-white-emphasis mt-5" th:href="@{/}">Home</a>
+                            </li>
+                            <li class="nav-item p-2">
+                                <a class="nav-link text-white-emphasis mt-2" th:href="@{/products}">Show Products</a>
+                            </li>
+                            <li class="nav-item p-2">
+                                <a class="nav-link text-white-emphasis mt-2" th:href="@{/addProduct}">Add Product</a>
+                            </li>
+                            <li class="nav-item p-2">
+                                <a class="nav-link text-white-emphasis mt-2" th:href="@{/lookProduct}">Look Product</a>
+                            </li>
+                            <li class="nav-item p-2">
+                                <a class="nav-link text-white-emphasis mt-2" th:href="@{/editProduct}">Edit Product</a>
+                            </li>
+                            <li class="nav-item p-2">
+                                <a class="nav-link text-white-emphasis mt-2" th:href="@{/removeProduct}">Remove Product</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-10">
+                <div class="content tab-content">
+                    <div class="tab-pane fade show active" id="home">
+                        <div class="text-left text-success p-3">
+                            <a class="h3 text-white">Add Product</a>
+                            <br><br>
+                            <div th:if="${errorMessage}" class="alert alert-danger text-center" th:text="${errorMessage}"></div>
+                            <div class="container-fluid p-3">
+
+                                <form th:action="@{/products_saved}" th:object="${product}" method="post"
+                                      style="max-width: 600px; margin: 0 auto;">
+                                    <div class="m-1 border rounded p-4">
+
+                                        <div class="form-group row">
+                                            <label class="col-form-label text-white col-sm-4" for="name">Name: </label>
+                                            <div class="col-sm-8">
+                                                <input type="text" th:field="*{name}" class="form-control" id="name"
+                                                       placeholder="Enter Product Name..." required>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="form-group row">
+                                            <label class="col-form-label text-white col-sm-4" for="category">Category: </label>
+                                            <div class="col-sm-8">
+                                                <input type="text" th:field="*{category}" class="form-control" id="category" placeholder="Enter Product Category..." required>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="form-group row">
+                                            <label class="col-form-label text-white col-sm-4" for="price">Price: </label>
+                                            <div class="col-sm-8">
+                                                <input type="number" value="0.0" th:field="*{price}" class="form-control" id="price"
+                                                       step="0.01" min="0.1" max="1000" placeholder="Enter Product Price..." required>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="form-group row">
+                                            <label class="col-form-label text-white col-sm-4" for="quantity">Quantity: </label>
+                                            <div class="col-sm-8">
+                                                <input type="number" value="0" th:field="*{quantity}" class="form-control" id="quantity"
+                                                       step="1" min="0" max="100" placeholder="Enter Product Quantity..." required>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="form-group row">
+                                            <label class="col-form-label text-white col-sm-4" for="min_quantity">Minimum Quantity: </label>
+                                            <div class="col-sm-8">
+                                                <input type="number" th:field="*{minQuantity}" class="form-control" id="min_quantity"
+                                                       step="1" min="0" max="100" placeholder="Enter Product Min. Quantity..." required>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="form-group row">
+                                            <label class="col-form-label text-white col-sm-4" for="description">Description: </label>
+                                            <div class="col-sm-8">
+                                                <input type="text" th:field="*{description}" class="form-control" id="description" placeholder="Enter Product Description...">
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="text-center p-3">
+                                            <button type="submit" class="btn btn-success">Save Product</button>
+                                            <button type="reset" class="btn btn-secondary">Clear</button>
+                                        </div>
+
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="text-center">
+                                <a class="nav-link text-white link-underline" th:href="@{/}">Return Home</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        // Get the input element
+        var input = document.getElementById("category");
+
+        // Listen for input event on text field
+        input.addEventListener("input", function(event) {
+            // Get the value of the input field
+            var inputValue = input.value;
+            var formattedInput = inputValue.replace(/[^A-Za-z]/g, "");
+
+            // Update the input field with only alphabetic characters
+            input.value = formattedInput;
+        });
+    </script>
+
+</body>
+</html>
